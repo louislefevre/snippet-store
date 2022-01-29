@@ -20,9 +20,9 @@ interface SnippetDao {
     @Delete
     suspend fun delete(snippet: Snippet)
 
-    @Query("SELECT * FROM snippet")
+    @Query("SELECT * FROM snippets")
     fun getAllSnippets(): Flow<List<Snippet>>
 
-    @Query("SELECT * FROM snippet WHERE id = :id")
+    @Query("SELECT * FROM snippets WHERE id = :id")
     fun getSnippetById(id: Int): Flow<Snippet>
 }

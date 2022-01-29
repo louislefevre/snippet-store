@@ -6,16 +6,16 @@ import com.snippetstore.app.misc.Language
 import java.text.DateFormat
 import java.util.Date
 
-@Entity
+@Entity(tableName = "snippets")
 data class Snippet(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
 
-    val date: Date,
     val content: String,
-    val language: Language,
     val title: String,
     val subtitle: String,
+    val language: Language,
+    val date: Date
 )
 
 fun Snippet.getFormattedDate(): String =

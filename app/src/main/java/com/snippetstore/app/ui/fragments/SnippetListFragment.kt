@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.snippetstore.app.adapter.SnippetAdapter
@@ -17,7 +18,7 @@ class SnippetListFragment : Fragment() {
 
     private lateinit var binding: FragmentSnippetListBinding
     private lateinit var snippetAdapter: SnippetAdapter
-    private val snippetViewModel: SnippetsViewModel by viewModels()
+    private val snippetsViewModel: SnippetsViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSnippetListBinding.inflate(inflater, container, false)
@@ -41,7 +42,7 @@ class SnippetListFragment : Fragment() {
     }
 
     private fun subscribeToObservers() {
-        snippetViewModel.allSnippets.observe(viewLifecycleOwner) {
+        snippetsViewModel.allSnippets.observe(viewLifecycleOwner) {
             snippetAdapter.submitList(it)
         }
     }

@@ -8,13 +8,19 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.snippetstore.app.R
 import com.snippetstore.app.databinding.FragmentSnippetBinding
+import com.snippetstore.app.misc.Language
+import com.snippetstore.app.ui.viewmodels.SnippetsViewModel
+import java.util.Calendar
+import java.util.Date
 
 class SnippetFragment : Fragment() {
 
     private lateinit var binding: FragmentSnippetBinding
+    private val snippetsViewModel: SnippetsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +48,13 @@ class SnippetFragment : Fragment() {
     }
 
     private fun saveSnippet() {
-        // TODO: Implement snippet saving
+        snippetsViewModel.addNewSnippet(
+            binding.cvCodeContent.text.toString(),
+            binding.etTitle.text.toString(),
+            binding.etDescription.text.toString(),
+            Language.JAVA, // TODO: Remove temporary hardcoded language
+            Calendar.getInstance().time
+        )
     }
 
     private fun navigateBack() {
