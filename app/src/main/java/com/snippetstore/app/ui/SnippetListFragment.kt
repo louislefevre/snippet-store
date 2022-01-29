@@ -16,6 +16,9 @@ class SnippetListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSnippetListBinding.inflate(inflater, container, false)
         snippetAdapter = SnippetAdapter {}
+        binding.apply {
+            rvSnippetList.adapter = snippetAdapter
+        }
         return binding.root
     }
 }

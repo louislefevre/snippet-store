@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SnippetStore</string>
+    <string name="action_edit_snippet">Edit</string>
+    <string name="action_delete_snippet">Delete</string>
+    <string name="empty_title">N/A</string>
+    <string name="empty_body">N/A</string>
 </resources>
