@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/snippetListFragment"
-        android:name="com.snippetstore.app.ui.SnippetListFragment"
+        android:name="com.snippetstore.app.ui.fragments.SnippetListFragment"
         android:label="@string/snippet_list_title"
         tools:layout="@layout/fragment_snippet_list">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/snippetFragment"
-        android:name="com.snippetstore.app.ui.SnippetFragment"
+        android:name="com.snippetstore.app.ui.fragments.SnippetFragment"
         android:label="@string/snippet_title"
         tools:layout="@layout/fragment_snippet" />
 

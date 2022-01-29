@@ -1,4 +1,4 @@
-package com.snippetstore.app.ui
+package com.snippetstore.app.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
