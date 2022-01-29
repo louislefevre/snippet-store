@@ -1,3 +1,8 @@
 package com.snippetstore.app.data
 
-interface Snippet
+data class Snippet(
+    val content: String,
+    val language: String,
+    val title: String,
+    val subtitle: String,
+)

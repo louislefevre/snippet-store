@@ -26,7 +26,11 @@ class SnippetAdapter(private val onEntryClicked: (Snippet) -> Unit) :
 
     class EntryViewHolder(private var binding: ItemSnippetBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(snippet: Snippet) {
-            binding.apply {}
+            binding.apply {
+                tvPreview.text = snippet.content
+                tvTitle.text = snippet.title
+                tvSubtitle.text = snippet.subtitle
+            }
         }
     }
 
