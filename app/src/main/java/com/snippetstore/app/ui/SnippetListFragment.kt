@@ -1,10 +1,11 @@
 package com.snippetstore.app.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.snippetstore.app.adapter.SnippetAdapter
 import com.snippetstore.app.databinding.FragmentSnippetListBinding
 
@@ -15,10 +16,15 @@ class SnippetListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSnippetListBinding.inflate(inflater, container, false)
-        snippetAdapter = SnippetAdapter {}
+        snippetAdapter = SnippetAdapter { navigateToSnippetFragment() }
         binding.apply {
             rvSnippetList.adapter = snippetAdapter
         }
         return binding.root
+    }
+
+    private fun navigateToSnippetFragment() {
+        val action = SnippetListFragmentDirections.actionSnippetListFragmentToSnippetFragment()
+        findNavController().navigate(action)
     }
 }

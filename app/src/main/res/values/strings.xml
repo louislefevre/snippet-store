@@ -4,4 +4,6 @@
     <string name="action_delete_snippet">Delete</string>
     <string name="empty_title">N/A</string>
     <string name="empty_body">N/A</string>
+    <string name="snippet_list_title">Snippets</string>
+    <string name="snippet_title">Code</string>
 </resources>
