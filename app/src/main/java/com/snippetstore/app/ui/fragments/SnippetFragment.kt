@@ -51,7 +51,7 @@ class SnippetFragment : Fragment() {
         snippetsViewModel.addNewSnippet(
             binding.cvCodeContent.text.toString(),
             binding.etTitle.text.toString(),
-            binding.etDescription.text.toString(),
+            binding.etNotes.text.toString(),
             Language.JAVA, // TODO: Remove temporary hardcoded language
             Calendar.getInstance().time
         )

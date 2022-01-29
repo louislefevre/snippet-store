@@ -29,7 +29,7 @@ class SnippetAdapter(private val onEntryClicked: (Snippet) -> Unit) :
             binding.apply {
                 tvPreview.text = snippet.content
                 tvTitle.text = snippet.title
-                tvSubtitle.text = snippet.subtitle
+                tvSubtitle.text = snippet.notes
             }
         }
     }

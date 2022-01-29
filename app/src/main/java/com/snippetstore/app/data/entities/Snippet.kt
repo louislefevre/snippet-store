@@ -13,7 +13,7 @@ data class Snippet(
 
     val content: String,
     val title: String,
-    val subtitle: String,
+    val notes: String,
     val language: Language,
     val date: Date
 )
