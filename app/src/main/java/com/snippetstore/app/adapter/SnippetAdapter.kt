@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.snippetstore.app.data.entities.Snippet
+import com.snippetstore.app.data.entities.getFormattedDate
 import com.snippetstore.app.databinding.ItemSnippetBinding
 
 class SnippetAdapter(private val onEntryClicked: (Snippet) -> Unit) :
@@ -29,7 +30,7 @@ class SnippetAdapter(private val onEntryClicked: (Snippet) -> Unit) :
             binding.apply {
                 tvPreview.text = snippet.content
                 tvTitle.text = snippet.title
-                tvSubtitle.text = snippet.notes
+                tvSubtitle.text = snippet.getFormattedDate()
             }
         }
     }
