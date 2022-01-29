@@ -1,4 +1,4 @@
-package com.snippetstore.app
+package com.snippetstore.app.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

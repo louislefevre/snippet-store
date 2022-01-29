@@ -1,4 +1,4 @@
-package com.snippetstore.app
+package com.snippetstore.app.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
