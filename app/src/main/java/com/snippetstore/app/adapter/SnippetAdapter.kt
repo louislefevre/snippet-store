@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.snippetstore.app.data.Snippet
+import com.snippetstore.app.data.entities.Snippet
 import com.snippetstore.app.databinding.ItemSnippetBinding
 
 class SnippetAdapter(private val onEntryClicked: (Snippet) -> Unit) :

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.snippetstore.app.adapter.SnippetAdapter
-import com.snippetstore.app.data.MockData
 import com.snippetstore.app.databinding.FragmentSnippetListBinding
 
 class SnippetListFragment : Fragment() {
@@ -27,9 +26,6 @@ class SnippetListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addOnClickListeners()
-
-        // Supply mock data for testing - submit list from VM observer for production.
-        snippetAdapter.submitList(MockData.createMockData())
     }
 
     private fun addOnClickListeners() {
