@@ -23,6 +23,19 @@ class SnippetListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        addOnClickListeners()
+    }
+
+    private fun addOnClickListeners() {
+        binding.apply {
+            fabAddSnippet.setOnClickListener {
+                // TODO: Navigate to new snippet fragment
+            }
+        }
+    }
+
     private fun navigateToSnippetFragment() {
         val action = SnippetListFragmentDirections.actionSnippetListFragmentToSnippetFragment()
         findNavController().navigate(action)
