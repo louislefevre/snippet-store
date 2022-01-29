@@ -34,9 +34,7 @@ class SnippetListFragment : Fragment() {
 
     private fun addOnClickListeners() {
         binding.apply {
-            fabAddSnippet.setOnClickListener {
-                // TODO: Navigate to new snippet fragment
-            }
+            fabAddSnippet.setOnClickListener { navigateToSnippetFragment() }
         }
     }
 
