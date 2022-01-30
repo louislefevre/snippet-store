@@ -19,6 +19,11 @@
         android:id="@+id/snippetFragment"
         android:name="com.snippetstore.app.ui.fragments.SnippetFragment"
         android:label="@string/snippet_title"
-        tools:layout="@layout/fragment_snippet" />
+        tools:layout="@layout/fragment_snippet">
+        <argument
+            android:name="snippetId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

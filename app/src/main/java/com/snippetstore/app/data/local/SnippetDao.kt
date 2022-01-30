@@ -24,5 +24,5 @@ interface SnippetDao {
     fun getAllSnippets(): Flow<List<Snippet>>
 
     @Query("SELECT * FROM snippets WHERE id = :id")
-    fun getSnippetById(id: Int): Flow<Snippet>
+    fun getSnippetById(id: Int): Flow<Snippet?>
 }

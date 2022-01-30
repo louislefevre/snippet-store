@@ -22,7 +22,7 @@ class SnippetRepositoryImpl(private val dao: SnippetDao) : SnippetRepository {
         return dao.getAllSnippets()
     }
 
-    override fun getSnippetById(id: Int): Flow<Snippet> {
+    override fun getSnippetById(id: Int): Flow<Snippet?> {
         return dao.getSnippetById(id)
     }
 }

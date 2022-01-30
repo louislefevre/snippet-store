@@ -36,3 +36,6 @@ fun Snippet.getFormattedDate(): String {
 
 fun Snippet.getFormattedTime(): String =
     DateFormat.getTimeInstance(DateFormat.SHORT).format(date)
+
+fun Snippet.getFormattedDateTime(): String =
+    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(date)

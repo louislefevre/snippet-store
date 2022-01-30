@@ -9,7 +9,7 @@ import com.snippetstore.app.data.entities.Snippet
 import com.snippetstore.app.data.entities.getFormattedDate
 import com.snippetstore.app.databinding.ItemSnippetBinding
 
-class SnippetAdapter(private val onEntryClicked: (Snippet) -> Unit) :
+class SnippetAdapter(private val onSnippetClicked: (Snippet) -> Unit) :
     ListAdapter<Snippet, SnippetAdapter.EntryViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EntryViewHolder {
@@ -21,7 +21,7 @@ class SnippetAdapter(private val onEntryClicked: (Snippet) -> Unit) :
         val current = getItem(position)
         holder.bind(current)
         holder.itemView.setOnClickListener {
-            onEntryClicked(current)
+            onSnippetClicked(current)
         }
     }
 

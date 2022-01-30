@@ -13,7 +13,10 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.snippetstore.app.R
+import com.snippetstore.app.data.entities.Snippet
+import com.snippetstore.app.data.entities.getFormattedDateTime
 import com.snippetstore.app.databinding.FragmentSnippetBinding
 import com.snippetstore.app.misc.Language
 import com.snippetstore.app.ui.viewmodels.SnippetsViewModel
@@ -23,6 +26,7 @@ class SnippetFragment : Fragment() {
 
     private lateinit var binding: FragmentSnippetBinding
     private val snippetsViewModel: SnippetsViewModel by activityViewModels()
+    private val navArgs: SnippetFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +41,11 @@ class SnippetFragment : Fragment() {
             )
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        subscribeToObservers()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -55,6 +64,21 @@ class SnippetFragment : Fragment() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun subscribeToObservers() {
+        snippetsViewModel.getSnippet(navArgs.snippetId).observe(viewLifecycleOwner) {
+            it?.let { bindSnippet(it) }
+        }
+    }
+
+    private fun bindSnippet(snippet: Snippet) {
+        binding.apply {
+            cvCodeContent.setText(snippet.content)
+            etTitle.setText(snippet.title)
+            tvLanguageList.setText(snippet.language.toString())
+            tvDate.text = snippet.getFormattedDateTime()
         }
     }
 

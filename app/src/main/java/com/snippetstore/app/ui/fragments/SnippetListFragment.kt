@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.snippetstore.app.adapter.SnippetAdapter
 import com.snippetstore.app.databinding.FragmentSnippetListBinding
@@ -22,7 +21,7 @@ class SnippetListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSnippetListBinding.inflate(inflater, container, false)
-        snippetAdapter = SnippetAdapter { navigateToSnippetFragment() }
+        snippetAdapter = SnippetAdapter { navigateToSnippetFragment(it.id) }
         binding.apply {
             rvSnippetList.adapter = snippetAdapter
         }
@@ -47,8 +46,12 @@ class SnippetListFragment : Fragment() {
         }
     }
 
-    private fun navigateToSnippetFragment() {
-        val action = SnippetListFragmentDirections.actionSnippetListFragmentToSnippetFragment()
+    private fun navigateToSnippetFragment(id: Int? = null) {
+        val action = if (id == null) {
+            SnippetListFragmentDirections.actionSnippetListFragmentToSnippetFragment()
+        } else {
+            SnippetListFragmentDirections.actionSnippetListFragmentToSnippetFragment(id)
+        }
         findNavController().navigate(action)
     }
 }

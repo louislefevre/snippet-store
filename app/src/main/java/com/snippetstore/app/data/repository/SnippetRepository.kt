@@ -13,5 +13,5 @@ interface SnippetRepository {
 
     fun getAllSnippets(): Flow<List<Snippet>>
 
-    fun getSnippetById(id: Int): Flow<Snippet>
+    fun getSnippetById(id: Int): Flow<Snippet?>
 }
