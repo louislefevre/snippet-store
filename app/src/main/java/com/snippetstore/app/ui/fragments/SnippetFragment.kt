@@ -7,6 +7,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.trimmedLength
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,7 +17,6 @@ import com.snippetstore.app.databinding.FragmentSnippetBinding
 import com.snippetstore.app.misc.Language
 import com.snippetstore.app.ui.viewmodels.SnippetsViewModel
 import java.util.Calendar
-import java.util.Date
 
 class SnippetFragment : Fragment() {
 
@@ -34,6 +35,10 @@ class SnippetFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.snippet_menu, menu)
+        binding.cvCodeContent.addTextChangedListener {
+            val saveMenuItem = menu.findItem(R.id.actionSave)
+            saveMenuItem.isEnabled = it != null && it.trimmedLength() > 0
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
