@@ -16,8 +16,8 @@ class SnippetsViewModel @Inject constructor(private val repository: SnippetRepos
 
     val allSnippets = repository.getAllSnippets().asLiveData()
 
-    fun addNewSnippet(content: String, title: String, notes: String, language: Language, date: Date) {
-        val snippet = getNewSnippet(content, title, notes, language, date)
+    fun addNewSnippet(content: String, title: String, language: Language, date: Date) {
+        val snippet = getNewSnippet(content, title, language, date)
         insertSnippet(snippet)
     }
 
@@ -42,8 +42,7 @@ class SnippetsViewModel @Inject constructor(private val repository: SnippetRepos
     private fun getNewSnippet(
         content: String,
         title: String,
-        notes: String,
         language: Language,
         date: Date
-    ): Snippet = Snippet(content = content, title = title, notes = notes, language = language, date = date)
+    ): Snippet = Snippet(content = content, title = title, language = language, date = date)
 }

@@ -4,16 +4,8 @@
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
+                                                   android:layout_margin="8dp"
                                                    tools:context=".ui.fragments.SnippetFragment">
-
-    <com.amrdeveloper.codeview.CodeView
-        android:id="@+id/cvCodeContent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/tilTitleContainer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilTitleContainer"
@@ -23,10 +15,10 @@
         android:hint="@string/snippet_title_hint"
         app:counterEnabled="true"
         app:counterMaxLength="50"
-        app:layout_constraintBottom_toTopOf="@+id/tilNotesContainer"
+        app:layout_constraintBottom_toTopOf="@+id/tilLanguageContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvCodeContent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTitle"
@@ -37,28 +29,39 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilNotesContainer"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:id="@+id/tilLanguageContainer"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:hint="@string/snippet_body_hint"
-        app:counterEnabled="true"
-        app:counterMaxLength="5000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="@string/snippet_language_hint"
+        app:layout_constraintBottom_toTopOf="@+id/cvCodeContent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilTitleContainer">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etNotes"
+        <AutoCompleteTextView
+            android:id="@+id/tvLanguageList"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:maxLength="5000"
-            android:overScrollMode="always"
-            android:scrollbarStyle="insideInset"
-            android:scrollbars="vertical" />
+            android:layout_height="wrap_content"
+            android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/cvCodeContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilTitleContainer"
+        tools:text="01/01/2021" />
+
+    <com.amrdeveloper.codeview.CodeView
+        android:id="@+id/cvCodeContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilLanguageContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

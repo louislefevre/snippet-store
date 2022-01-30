@@ -6,7 +6,7 @@
     <string name="empty_body">N/A</string>
     <string name="snippet_list_title">Snippets</string>
     <string name="snippet_title">Code</string>
-    <string name="snippet_body_hint">Notes</string>
     <string name="snippet_title_hint">Title</string>
     <string name="action_save">Save</string>
+    <string name="snippet_language_hint">Language</string>
 </resources>

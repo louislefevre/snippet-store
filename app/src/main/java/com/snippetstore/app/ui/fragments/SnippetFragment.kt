@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.core.text.trimmedLength
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -30,6 +31,11 @@ class SnippetFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentSnippetBinding.inflate(inflater, container, false)
+        binding.apply {
+            tvLanguageList.setAdapter(
+                ArrayAdapter(requireContext(), R.layout.language_item, Language.values())
+            )
+        }
         return binding.root
     }
 
@@ -56,7 +62,6 @@ class SnippetFragment : Fragment() {
         snippetsViewModel.addNewSnippet(
             binding.cvCodeContent.text.toString(),
             binding.etTitle.text.toString(),
-            binding.etNotes.text.toString(),
             Language.JAVA, // TODO: Remove temporary hardcoded language
             Calendar.getInstance().time
         )
