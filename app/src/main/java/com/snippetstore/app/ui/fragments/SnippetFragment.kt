@@ -1,7 +1,6 @@
 package com.snippetstore.app.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -19,7 +18,6 @@ import com.snippetstore.app.R
 import com.snippetstore.app.data.entities.Snippet
 import com.snippetstore.app.data.entities.getFormattedDateTime
 import com.snippetstore.app.databinding.FragmentSnippetBinding
-import com.snippetstore.app.misc.Language
 import com.snippetstore.app.ui.viewmodels.SnippetsViewModel
 import java.util.Calendar
 import java.util.Date
@@ -40,7 +38,11 @@ class SnippetFragment : Fragment() {
         binding = FragmentSnippetBinding.inflate(inflater, container, false)
         binding.apply {
             tvLanguageList.setAdapter(
-                ArrayAdapter(requireContext(), R.layout.language_item, Language.values())
+                ArrayAdapter(
+                    requireContext(),
+                    R.layout.language_item,
+                    resources.getStringArray(R.array.Languages)
+                )
             )
         }
         return binding.root
@@ -94,7 +96,7 @@ class SnippetFragment : Fragment() {
         binding.apply {
             cvCodeContent.setText(snippet.content)
             etTitle.setText(snippet.title)
-            tvLanguageList.setText(snippet.language.toString(), false)
+            tvLanguageList.setText(snippet.language, false)
             tvDate.text = snippet.getFormattedDateTime()
         }
         curSnippet = snippet;
@@ -143,9 +145,8 @@ class SnippetFragment : Fragment() {
         return binding.etTitle.text.toString()
     }
 
-    private fun getLanguage(): Language {
-        // TODO: Remove temporary hardcoded language
-        return Language.JAVA
+    private fun getLanguage(): String {
+        return binding.tvLanguageList.text.toString()
     }
 
     private fun getCurrentDate(): Date {

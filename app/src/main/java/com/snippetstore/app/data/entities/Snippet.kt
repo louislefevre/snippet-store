@@ -3,7 +3,6 @@ package com.snippetstore.app.data.entities
 import android.text.format.DateUtils
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.snippetstore.app.misc.Language
 import java.text.DateFormat
 import java.util.Calendar
 import java.util.Date
@@ -15,7 +14,7 @@ data class Snippet(
 
     var content: String,
     var title: String,
-    var language: Language,
+    var language: String,
     var date: Date
 )
 

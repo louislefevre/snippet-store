@@ -9,4 +9,13 @@
     <string name="snippet_title_hint">Title</string>
     <string name="action_save">Save</string>
     <string name="snippet_language_hint">Language</string>
+
+    <string-array name="Languages">
+        <item>Text</item>
+        <item>Java</item>
+        <item>Kotlin</item>
+        <item>Swift</item>
+        <item>Python</item>
+        <item>Javascript</item>
+    </string-array>
 </resources>

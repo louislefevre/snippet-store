@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.snippetstore.app.data.entities.Snippet
 import com.snippetstore.app.data.repository.SnippetRepository
-import com.snippetstore.app.misc.Language
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -21,7 +20,7 @@ class SnippetsViewModel @Inject constructor(private val repository: SnippetRepos
         return repository.getSnippetById(id).asLiveData()
     }
 
-    fun insertSnippet(content: String, title: String, language: Language, date: Date) {
+    fun insertSnippet(content: String, title: String, language: String, date: Date) {
         val snippet = getNewSnippet(content, title, language, date)
         insertSnippet(snippet)
     }
@@ -47,7 +46,7 @@ class SnippetsViewModel @Inject constructor(private val repository: SnippetRepos
     private fun getNewSnippet(
         content: String,
         title: String,
-        language: Language,
+        language: String,
         date: Date
     ): Snippet = Snippet(content = content, title = title, language = language, date = date)
 }
