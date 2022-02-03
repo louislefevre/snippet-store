@@ -9,6 +9,10 @@
     <string name="snippet_title_hint">Title</string>
     <string name="action_save">Save</string>
     <string name="snippet_language_hint">Language</string>
+    <string name="dialog_save_title">Save Changes?</string>
+    <string name="dialog_unsaved_warning">You have unsaved changes. Do you want to save them?</string>
+    <string name="dialog_discard">Discard</string>
+    <string name="dialog_save">Save</string>
 
     <string-array name="Languages">
         <item>Text</item>

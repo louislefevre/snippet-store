@@ -10,6 +10,10 @@ class SnippetRepositoryImpl(private val dao: SnippetDao) : SnippetRepository {
         dao.insert(snippet)
     }
 
+    override suspend fun insertWithId(snippet: Snippet): Long {
+        return dao.insertWithId(snippet)
+    }
+
     override suspend fun update(snippet: Snippet) {
         dao.update(snippet)
     }

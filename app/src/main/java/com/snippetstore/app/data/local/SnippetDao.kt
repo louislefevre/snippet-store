@@ -14,6 +14,9 @@ interface SnippetDao {
     @Insert
     suspend fun insert(snippet: Snippet)
 
+    @Insert
+    suspend fun insertWithId(snippet: Snippet): Long
+
     @Update
     suspend fun update(snippet: Snippet)
 

@@ -7,6 +7,8 @@ interface SnippetRepository {
 
     suspend fun insert(snippet: Snippet)
 
+    suspend fun insertWithId(snippet: Snippet): Long
+
     suspend fun update(snippet: Snippet)
 
     suspend fun delete(snippet: Snippet)

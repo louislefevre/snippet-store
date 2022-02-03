@@ -8,12 +8,14 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.activity.addCallback
 import androidx.core.text.trimmedLength
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.snippetstore.app.R
 import com.snippetstore.app.data.entities.Snippet
 import com.snippetstore.app.data.entities.getFormattedDateTime
@@ -32,6 +34,11 @@ class SnippetFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        // Callback is called when navigating back via system back button.
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            navigateBackWithPrompt()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -73,13 +80,13 @@ class SnippetFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            android.R.id.home -> {
+                navigateBackWithPrompt()
+                true
+            }
             R.id.actionSave -> {
-                if (curSnippet == null) {
-                    saveNewSnippet()
-                } else {
-                    updateCurrentSnippet()
-                }
-                navigateBack()
+                saveOrUpdateSnippet()
+                item.isEnabled = false
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -117,13 +124,25 @@ class SnippetFragment : Fragment() {
         return false
     }
 
+    private fun saveOrUpdateSnippet() {
+        if (curSnippet == null) {
+            saveNewSnippet()
+        } else {
+            updateCurrentSnippet()
+        }
+    }
+
     private fun saveNewSnippet() {
-        snippetsViewModel.insertSnippet(
-            getCodeContent(),
-            getTitle(),
-            getLanguage(),
-            getCurrentDate()
+        val snippet = Snippet(
+            content = getCodeContent(),
+            title = getTitle(),
+            language = getLanguage(),
+            date = getCurrentDate()
         )
+
+        snippetsViewModel.insertSnippetWithId(snippet) {
+            curSnippet = snippet.copy(id = it)
+        }
     }
 
     private fun updateCurrentSnippet() {
@@ -135,6 +154,26 @@ class SnippetFragment : Fragment() {
         }?.also {
             snippetsViewModel.updateSnippet(it)
         }
+    }
+
+    private fun navigateBackWithPrompt() {
+        if (!hasContentChanged()) {
+            return navigateBack()
+        }
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.dialog_save_title))
+            .setMessage(getString(R.string.dialog_unsaved_warning))
+            .setNegativeButton(getString(R.string.dialog_discard)) { _, _ -> navigateBack() }
+            .setPositiveButton(getString(R.string.dialog_save)) { _, _ ->
+                saveOrUpdateSnippet()
+                navigateBack()
+            }
+            .show()
+    }
+
+    private fun navigateBack() {
+        findNavController().navigateUp()
     }
 
     private fun getCodeContent(): String {
@@ -152,8 +191,20 @@ class SnippetFragment : Fragment() {
     private fun getCurrentDate(): Date {
         return Calendar.getInstance().time
     }
-
-    private fun navigateBack() {
-        findNavController().navigateUp()
-    }
 }
+
+
+// TODO: BUG: New snippet -> Add code -> Update title/language.
+//       Results in save being disabled despite code content.
+
+// TODO: BUG: Edit Snippet -> Remove code -> Save.
+//       Results in save being enabled, even though no code is present.
+//       Possible change: Allow saving if title OR code is changed (but not language).
+
+// TODO: BUG: New Snippet -> Add Code -> Navigate back.
+//       Results in no warning dialog appear. Should warn user to save.
+
+// TODO: CHANGE: Convert Snippet id to long for consistency in ID types.
+
+// TODO: BUG: Edit Snippet -> Make changes so dialog appears -> Bring up keyboard -> Navigate back
+//       Results in keyboard staying on screen once navigated back to snippets listing.
