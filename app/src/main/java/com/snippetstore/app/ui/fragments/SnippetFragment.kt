@@ -21,12 +21,14 @@ import com.snippetstore.app.databinding.FragmentSnippetBinding
 import com.snippetstore.app.misc.Language
 import com.snippetstore.app.ui.viewmodels.SnippetsViewModel
 import java.util.Calendar
+import java.util.Date
 
 class SnippetFragment : Fragment() {
 
     private lateinit var binding: FragmentSnippetBinding
     private val snippetsViewModel: SnippetsViewModel by activityViewModels()
     private val navArgs: SnippetFragmentArgs by navArgs()
+    private var curSnippet: Snippet? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,10 +58,16 @@ class SnippetFragment : Fragment() {
         }
     }
 
+    // TODO: Disable save option when nothing has been changed in current snippet
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.actionSave -> {
-                saveSnippet()
+                if (curSnippet == null) {
+                    saveNewSnippet()
+                } else {
+                    updateCurrentSnippet()
+                }
                 navigateBack()
                 true
             }
@@ -80,15 +88,44 @@ class SnippetFragment : Fragment() {
             tvLanguageList.setText(snippet.language.toString())
             tvDate.text = snippet.getFormattedDateTime()
         }
+        curSnippet = snippet;
     }
 
-    private fun saveSnippet() {
-        snippetsViewModel.addNewSnippet(
-            binding.cvCodeContent.text.toString(),
-            binding.etTitle.text.toString(),
-            Language.JAVA, // TODO: Remove temporary hardcoded language
-            Calendar.getInstance().time
+    private fun saveNewSnippet() {
+        snippetsViewModel.insertSnippet(
+            getCodeContent(),
+            getTitle(),
+            getLanguage(),
+            getCurrentDate()
         )
+    }
+
+    private fun updateCurrentSnippet() {
+        curSnippet?.apply {
+            content = getCodeContent()
+            title = getTitle()
+            language = getLanguage()
+            date = getCurrentDate()
+        }?.also {
+            snippetsViewModel.updateSnippet(it)
+        }
+    }
+
+    private fun getCodeContent(): String {
+        return binding.cvCodeContent.text.toString()
+    }
+
+    private fun getTitle(): String {
+        return binding.etTitle.text.toString()
+    }
+
+    private fun getLanguage(): Language {
+        // TODO: Remove temporary hardcoded language
+        return Language.JAVA
+    }
+
+    private fun getCurrentDate(): Date {
+        return Calendar.getInstance().time
     }
 
     private fun navigateBack() {

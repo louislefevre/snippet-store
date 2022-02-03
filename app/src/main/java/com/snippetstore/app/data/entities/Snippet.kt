@@ -13,10 +13,10 @@ data class Snippet(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
 
-    val content: String,
-    val title: String,
-    val language: Language,
-    val date: Date
+    var content: String,
+    var title: String,
+    var language: Language,
+    var date: Date
 )
 
 fun Snippet.getFormattedDate(): String {
