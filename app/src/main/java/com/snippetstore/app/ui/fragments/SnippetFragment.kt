@@ -1,6 +1,7 @@
 package com.snippetstore.app.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -52,13 +53,21 @@ class SnippetFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.snippet_menu, menu)
+        val saveMenuItem = menu.findItem(R.id.actionSave)
+        val toggleSaveItem: (Boolean) -> Unit = { saveMenuItem.isEnabled = it }
+
+        binding.etTitle.addTextChangedListener { toggleSaveItem(hasContentChanged()) }
+        binding.tvLanguageList.addTextChangedListener { toggleSaveItem(hasContentChanged()) }
         binding.cvCodeContent.addTextChangedListener {
-            val saveMenuItem = menu.findItem(R.id.actionSave)
-            saveMenuItem.isEnabled = it != null && it.trimmedLength() > 0
+            val isTextNotEmpty = it != null && it.trimmedLength() > 0
+
+            if (curSnippet == null) {
+                toggleSaveItem(isTextNotEmpty)
+            } else {
+                toggleSaveItem(hasContentChanged())
+            }
         }
     }
-
-    // TODO: Disable save option when nothing has been changed in current snippet
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -89,6 +98,21 @@ class SnippetFragment : Fragment() {
             tvDate.text = snippet.getFormattedDateTime()
         }
         curSnippet = snippet;
+    }
+
+    private fun hasContentChanged(): Boolean {
+        curSnippet?.let {
+            return it.content != getCodeContent() ||
+                    it.title != getTitle() ||
+                    it.language != getLanguage()
+        }
+
+        /* Even if there is a current snippet, it may not have been set (from null) yet.
+         * In such instances, return false as a default value. This is safe to assume since
+         * if curSnippet has not yet been set, its content would not have changed anyway.
+         * However, this will cause issues if attempting to use this method without ever
+         * setting curSnippet to a non-null value. */
+        return false
     }
 
     private fun saveNewSnippet() {
