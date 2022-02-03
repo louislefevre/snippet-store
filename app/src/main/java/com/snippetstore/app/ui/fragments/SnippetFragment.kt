@@ -94,7 +94,7 @@ class SnippetFragment : Fragment() {
         binding.apply {
             cvCodeContent.setText(snippet.content)
             etTitle.setText(snippet.title)
-            tvLanguageList.setText(snippet.language.toString())
+            tvLanguageList.setText(snippet.language.toString(), false)
             tvDate.text = snippet.getFormattedDateTime()
         }
         curSnippet = snippet;
